@@ -1,0 +1,23 @@
+services:
+  openvpn:
+    image: rdp
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+    restart: unless-stopped
+    container_name: rdp
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun
+    ports:
+      - "3000:3000"
+    volumes:
+      - /home/user/remmina/config:/config
+    dns_search:
+      - vpn-domain.com
+    dns:
+      - 10.200.6.1
+      - 10.200.6.2
+version: '3.0'
